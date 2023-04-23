@@ -1,0 +1,25 @@
+openapi: 3.0.0
+info:
+  title: CPub Service
+  description: >
+    Continuous Publishing Service API acts as a bridge between Wiley content and external
+    authoring tools such as Gutenberg.
+
+    ## General notes ##
+      This api is intended to grow over time supporting a greater number of operations
+
+    ## Security ##
+      This API supports the Content & Capabilities Platform standard authentication mechansim which requires consumers to supply an authenticated JWT in the form supported by our platform.  Supported JWT's cover individual person access as well as system access.  The Authenticated JWT will be used to track and record the identity for all API access.  In addition, the Authorization mechansism *may* limit access depending on the identity accessing the API.
+
+  version: 0.2.0
+paths:
+  /project:
+    get:
+      tags:
+        - Project
+      operationId: getProject
+      summary: Given a Education Project identifier this path will return a Project.
+      description: Get a Project object.
+      responses:
+        '200':
+          description: A JSON object representing a Project record

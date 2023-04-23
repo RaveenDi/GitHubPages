@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: DL-CPPSATeam@wiley.com
+  title: Content API
+  version: 0.1.0
+  description: |
+    REST API providing read and write access to **content** modelled by the
+    **Wiley Information Model (WIM)**.  This is a generic API that will return
+    content across all businesses and not just Research.  Each piece of content
+    will have it's own unique ID and this is **required** for the POSTing of new
+    versions of that content.  Each specific piece of content is also contained
+    in a higher level ContentMap which is like the manifest for the whole
+    structure.  In Research, this would manifest itself as a ResearchMap which
+    contains references to all the individual pieces of content that makes up a
+    Research Article.  therefore, the generic endpoint `/contents/{contentId}`
+    will return different pieces of content depending on the type of content it
+    is.
+    ## Content vs Metadata
+    The `/contents/{contentId}` endpoint will return either a JSON representation of the content (e.g. the metadata of the content), or it will return the actual content stream itself.  This will be controlled via content headers and is therefore controlled by the client as to whether they want the metadata or the content stream.  It's expected clients will require both for a piece of content and therefore there would be two calls to the same endpoint, with different content headers to get the metadata and content stream.
+    ## Security ##
+    This API supports the Content & Capabilities Platform standard authentication mechanism which requires consumers to supply an authenticated JWT in the form supported by our platform.  Supported JWT's cover individual person access as well as system access.  The Authenticated JWT will be used to track and record the identity for all API access.  In addition, the Authorization mechanism *may* limit access depending on the identity accessing the API.
+paths:
+  /contents:
+    get:
+      operationId: getContentsUsingGET
+      summary: Get content objects
+      description: Get content objects
+      tags:
+        - Content
+        - v1
+      responses:
+        "200":
+          description: An array of content object stubs
